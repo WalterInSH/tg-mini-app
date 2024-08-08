@@ -12,32 +12,33 @@
 <div id="list-container"></div>
 
 <script>
-    let df = MiniAppFingerprint.getDeviceInfo('test-tenant')
-    console.log(df)
+    function createList(obj) {
+        const list = document.createElement('ul');
+        list.classList.add('object-list');
+
+        for (const key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<span class="label">${key.charAt(0).toUpperCase() + key.slice(1)}:</span> ${obj[key]}`;
+                list.appendChild(listItem);
+            }
+        }
+
+        return list;
+    }
+
 
 </script>
 
 <script>
-    function createList(obj) {
-            const list = document.createElement('ul');
-            list.classList.add('object-list');
-
-            for (const key in obj) {
-                if (obj.hasOwnProperty(key)) {
-                    const listItem = document.createElement('li');
-                    listItem.innerHTML = `<span class="label">${key.charAt(0).toUpperCase() + key.slice(1)}:</span> ${obj[key]}`;
-                    list.appendChild(listItem);
-                }
-            }
-
-            return list;
-        }
+    MiniAppFingerprint.getDeviceInfo('test-tenant').then((df) => {
+        console.log(df)
 
         // 将列表添加到页面中
         const listContainer = document.getElementById('list-container');
         listContainer.appendChild(createList(df));
+    })
 </script>
-
 
 </body>
 </html>
