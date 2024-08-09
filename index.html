@@ -9,8 +9,10 @@
 </head>
 <body>
 <h1>Telegram SDK Demo</h1>
+<input id="domain" type="text"/>
+<input id="tenant" type="text"/>
+<button onclick="show()">Show</button>
 <div id="list-container"></div>
-
 <script>
     function createList(obj) {
         const list = document.createElement('ul');
@@ -19,25 +21,26 @@
         for (const key in obj) {
             if (obj.hasOwnProperty(key)) {
                 const listItem = document.createElement('li');
-                listItem.innerHTML = `<span class="label">${key.charAt(0).toUpperCase() + key.slice(1)}:</span> ${obj[key]}`;
+                listItem.innerHTML = `<span class="label">${key}:</span> ${obj[key]}`;
                 list.appendChild(listItem);
             }
         }
 
         return list;
     }
-
-
 </script>
 
 <script>
-    MiniAppFingerprint.getDeviceInfo('test-tenant').then((df) => {
-        console.log(df)
-
-        // 将列表添加到页面中
-        const listContainer = document.getElementById('list-container');
-        listContainer.appendChild(createList(df));
-    })
+    function show() {
+        MiniAppFingerprint.getDeviceInfo({
+            domain: document.getElementById('domain').value,
+            tenant: document.getElementById('tenant').value
+        }).then((df) => {
+            document.getElementById("list-container").innerHTML = "";
+            const listContainer = document.getElementById('list-container');
+            listContainer.appendChild(createList(df));
+        })
+    }
 </script>
 
 </body>
