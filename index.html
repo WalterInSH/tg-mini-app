@@ -34,7 +34,8 @@
     function show() {
         MiniAppFingerprint.getDeviceInfo({
             domain: document.getElementById('domain').value,
-            tenant: document.getElementById('tenant').value
+            tenant: document.getElementById('tenant').value,
+            forceReport: true
         }).then((df) => {
             document.getElementById("list-container").innerHTML = "";
             const listContainer = document.getElementById('list-container');
