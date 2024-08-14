@@ -32,15 +32,15 @@
 
 <script>
     function show() {
-        MiniAppFingerprint.getDeviceFingerprint({
+        let df = MiniAppFingerprint.getDeviceFingerprint({
             domain: document.getElementById('domain').value,
             tenant: document.getElementById('tenant').value,
             forceReport: true
-        }).then((df) => {
-            document.getElementById("list-container").innerHTML = "";
-            const listContainer = document.getElementById('list-container');
-            listContainer.appendChild(createList(df));
-        })
+        });
+
+        document.getElementById("list-container").innerHTML = "";
+        const listContainer = document.getElementById('list-container');
+        listContainer.appendChild(createList(df));
     }
 </script>
 
